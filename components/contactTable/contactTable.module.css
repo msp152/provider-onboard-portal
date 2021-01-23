@@ -1,0 +1,13 @@
+.table {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+
+
+.newContactFields {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
