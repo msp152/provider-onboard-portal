@@ -39,7 +39,7 @@ import {
   CardContent,
   Container,
   Typography,
-  TextField, 
+  TextField,
   FormGroup
 } from "@material-ui/core";
 
@@ -50,14 +50,15 @@ import AppBar from '@material-ui/core/AppBar';
 import ContactTable from "../contactTable";
 import { LoginButton } from "@inrupt/solid-ui-react";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexWrap: "wrap", 
-    flexGrow: 1, 
+    flexWrap: "wrap",
+    flexGrow: 1,
     maxWidth: "100%",
-    position:"relative"
+    position: "relative"
   },
   content: {
     flex: '1 0 auto'
@@ -77,28 +78,28 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius: "8px",
     width: "100%",
-    backgroundColor:"#E5E7E9"
+    backgroundColor: "#E5E7E9"
   },
   card: {
-    maxWidth: 480, 
+    maxWidth: 480,
     marginBottom: 16,
     bottom: theme.spacing(1),
     right: theme.spacing(1),
-    backgroundClip:"#F8F9F9"
+    backgroundClip: "#F8F9F9"
   },
-  logoItem :{
+  logoItem: {
     height: "7rem"
-    
-},
-logout:{
 
-  top: "3.5rem !important",
- // border: "1px #75758836 solid",
-  marginLeft:"75rem"
-},
-title:{
-  fontSize: 14
-}
+  },
+  logout: {
+
+    top: "3.5rem !important",
+    // border: "1px #75758836 solid",
+    marginLeft: "75rem"
+  },
+  title: {
+    fontSize: 14
+  }
 }));
 export default function LoginForm(): React.ReactElement {
   const classes = useStyles();
@@ -115,104 +116,119 @@ export default function LoginForm(): React.ReactElement {
 
   return (
     <div >
-      <AppBar position="static" elevation={0} style={{backgroundColor:"#EBF5FB"}}>
+      <AppBar position="static" elevation={0} style={{ backgroundColor: "#EBF5FB" }}>
         <Toolbar>
-        <img
-                     className={classes.logoItem}
-                     src="/uhc.jpeg"
-                     alt="opp-logo"
-                  />
-         </Toolbar>
-     
+          <img
+            className={classes.logoItem}
+            src="/uhc.jpeg"
+            alt="opp-logo"
+          />
+        </Toolbar>
+
       </AppBar>
-   
-    <Container style={{width:"50%",backgroundColor:"#F2F3F4"}}>
-      <Container >
-      <FormGroup>
-        <TextField
-          label="Profile WebId"
-          placeholder="Profile WebId"
-          type="url"
-          value={idp}
-          onChange={(e) => setIdp(e.target.value)}
-          InputProps={{
-            endAdornment: (
-        <LogoutButton>
-          <Button variant="contained" color="primary">
-            CLOSE
+
+      <Container style={{ width: "50%", backgroundColor: "#F2F3F4" }}>
+        <Container >
+          <FormGroup>
+            <TextField
+              label="Profile WebId"
+              placeholder="Profile WebId"
+              type="url"
+              value={idp}
+              onChange={(e) => setIdp(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <LogoutButton>
+                    <Button variant="contained" color="primary">
+                      CLOSE
           </Button>
-        </LogoutButton>
-            ),
-          }}
-        />
-      </FormGroup>
-    </Container>
-      <br></br>
-      <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
-        <Card style={{ maxWidth: 480,}}>
-      
+                  </LogoutButton>
+                ),
+              }}
+            />
+          </FormGroup>
+        </Container>
+        <br></br>
+        <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
+          <Card style={{ maxWidth: 480, }}>
+
             <CardActionArea
-            style={{
-             // justifyContent: "center",
-              display: "flex",
-            }}
-          >
-            <Image property={VCARD.hasPhoto.iri.value} width={150} />
-          </CardActionArea>
-
-          <CardContent style={{marginLeft:"10rem"}}>
-            <Typography gutterBottom variant="h5" component="h2">
-              <Text property={FOAF.name.iri.value} edit={editing} autosave />
-            </Typography>
-
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
               style={{
+                // justifyContent: "center",
                 display: "flex",
-                alignItems: "center",
               }}
             >
-              <BusinessIcon />
+              <Image property={VCARD.hasPhoto.iri.value} width={150} />
+            </CardActionArea>
 
-              <Text
-                property={VCARD.organization_name.iri.value}
-                edit={editing}
-                autosave
-              />
+            <CardContent style={{ marginLeft: "10rem" }}>
+              <Typography gutterBottom variant="h5" component="h2">
+                <Text property={FOAF.name.iri.value} edit={editing} autosave />
+              </Typography>
+
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                component="p"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <BusinessIcon/>
+
+                <Text
+                  property={VCARD.organization_name.iri.value}
+                  edit={editing}
+                  autosave
+                />
+              </Typography>
+
+              <Typography
+                gutterBottom
+                variant="subtitle1"
+                component="h3"
+              >
+                <AccountBoxIcon />
+                <Text
+                  property={
+                    VCARD.role.iri.value
+                  }
+                  edit={editing}
+                  autosave
+                />
+              </Typography>
+
+              <Typography variant="body2" color="textSecondary" component="p">
+                {"Born: "}
+                <Value
+                  property={VCARD.bday.iri.value}
+                  dataType="datetime"
+                  edit={editing}
+                  autosave
+                />
+              </Typography>
+            </CardContent>
+
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="h3">
+                Email Addresses
             </Typography>
 
-            <Typography variant="body2" color="textSecondary" component="p">
-              {"Born: "}
-              <Value
-                property={VCARD.bday.iri.value}
-                dataType="datetime"
-                edit={editing}
-                autosave
-              />
-            </Typography>
-          </CardContent>
+              <ContactTable property={VCARD.hasEmail.value} edit={editing} />
+            </CardContent>
 
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="h3">
-              Email Addresses
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="h3">
+                Phone Numbers
             </Typography>
 
-            <ContactTable property={VCARD.hasEmail.value} edit={editing} />
-          </CardContent>
-
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="h3">
-              Phone Numbers
-            </Typography>
-
-            <ContactTable property={VCARD.hasTelephone.value} edit={editing} />
-          </CardContent>
-        </Card>
-      </CombinedDataProvider>
-      <br></br>
-    </Container>
+              <ContactTable property={VCARD.hasTelephone.value} edit={editing} />
+            </CardContent>
+          </Card>
+        </CombinedDataProvider>
+        <br></br>
+      </Container>
     </div>
   );
 }
